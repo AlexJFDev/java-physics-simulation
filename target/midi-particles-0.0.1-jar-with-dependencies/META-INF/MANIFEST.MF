@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: 993537
+Build-Jdk: 17.0.1
+Main-Class: dev.alexjf.midi_particles.midiParticles
+

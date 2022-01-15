@@ -1,10 +1,6 @@
 package dev.alexjf;
 
-/**
- * Hello world!
- *
- */
-public class App 
+public class MidiParticles 
 {
     public static void main( String[] args )
     {
