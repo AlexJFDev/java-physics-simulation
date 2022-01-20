@@ -1,14 +1,16 @@
 package dev.alexjf.midiParticles;
 
-import dev.alexjf.midiParticles.frame.Window;
+import javax.swing.JFrame;
+import javax.swing.Timer;
 
-public class MidiParticlesMain {
-    public static int MAX_X = 100;
-    public static int MAX_Y = 100;
-    public static int PARTICLE_NUMBER = 10;
+public class MidiParticlesMain{
+    
     public static void main(String[] args)
     {
-        Window window = new Window();
-        
+        JFrame frame = new JFrame("Midi Particle Simulation");
+        ParticlePanel particlePanel = new ParticlePanel();
+
+        frame.add(particlePanel);
+        particlePanel.setVisible(true);
     }
 }
