@@ -1,7 +1,6 @@
 package dev.alexjf.midiParticles;
 
 import javax.swing.JFrame;
-import javax.swing.Timer;
 
 public class MidiParticlesMain{
     
@@ -10,7 +9,10 @@ public class MidiParticlesMain{
         JFrame frame = new JFrame("Midi Particle Simulation");
         ParticlePanel particlePanel = new ParticlePanel();
 
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(200, 200);
         frame.add(particlePanel);
-        particlePanel.setVisible(true);
+        frame.setVisible(true);
+        particlePanel.start();
     }
 }
