@@ -1,10 +1,10 @@
 package dev.alexjf.midiParticles;
 
 public class Coordinate {
-    public int xCoordinate;
-    public int yCoordinate;
+    public double xCoordinate;
+    public double yCoordinate;
 
-    public Coordinate(int xCoordinate2, int yCoordinate2){
+    public Coordinate(double xCoordinate2, double yCoordinate2){
         xCoordinate = xCoordinate2;
         yCoordinate = yCoordinate2;
     }
@@ -20,6 +20,6 @@ public class Coordinate {
 
     @Override
     public int hashCode(){
-        return xCoordinate * 31 + yCoordinate;
+        return ((Double) xCoordinate).hashCode() + ((Double) yCoordinate).hashCode();
     }
 }
