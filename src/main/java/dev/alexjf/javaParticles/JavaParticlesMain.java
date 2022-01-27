@@ -12,15 +12,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
-public class JavaParticlesMain {
+public interface JavaParticlesMain {
     static ParticlePanel particlePanel = new ParticlePanel();
-    static JButton testButton = new JButton("test");
-
-    public JPanel createControlPanel(){
-        JPanel returnPanel = new JPanel(new FlowLayout());
-
-        return returnPanel;
-    }
+    static JButton testButton = new JButton("Add Particle");
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Java Particle Simulation");

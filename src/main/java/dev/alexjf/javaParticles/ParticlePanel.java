@@ -26,12 +26,8 @@ public class ParticlePanel extends JPanel implements ActionListener{
             addParticle();
         }
         repaint();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         Timer timer = new Timer(10, this);
+        timer.setInitialDelay(1000);
         timer.start();
     }
 
