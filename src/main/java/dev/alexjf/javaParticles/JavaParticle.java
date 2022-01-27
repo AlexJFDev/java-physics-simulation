@@ -1,15 +1,15 @@
-package dev.alexjf.midiParticles;
+package dev.alexjf.javaParticles;
 
 import java.awt.Color;
 
-public class MidiParticle {
+public class JavaParticle {
     public Coordinate coordinate;
     public double xVelocity;
     public double yVelocity;
 
     public Color color;
 
-    public MidiParticle(Coordinate coordinate2, int xVelocity2, int yVelocity2, Color color2){
+    public JavaParticle(Coordinate coordinate2, int xVelocity2, int yVelocity2, Color color2){
         coordinate = coordinate2;
         xVelocity = xVelocity2;
         yVelocity = yVelocity2;

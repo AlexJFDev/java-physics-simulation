@@ -1,4 +1,4 @@
-package dev.alexjf.midiParticles;
+package dev.alexjf.javaParticles;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
-public class MidiParticlesMain {
+public class JavaParticlesMain {
     static ParticlePanel particlePanel = new ParticlePanel();
     static JButton testButton = new JButton("test");
 
@@ -23,7 +23,7 @@ public class MidiParticlesMain {
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Midi Particle Simulation");
+        JFrame frame = new JFrame("Java Particle Simulation");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Container pane = frame.getContentPane();

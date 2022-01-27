@@ -1,4 +1,4 @@
-package dev.alexjf.midiParticles;
+package dev.alexjf.javaParticles;
 
 public class Coordinate {
     public double xCoordinate;
@@ -20,6 +20,6 @@ public class Coordinate {
 
     @Override
     public int hashCode(){
-        return ((Double) xCoordinate).hashCode() + ((Double) yCoordinate).hashCode();
+        return (int) xCoordinate * 31 + (int) yCoordinate;
     }
 }
