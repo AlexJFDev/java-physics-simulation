@@ -15,11 +15,11 @@ public class Coordinate {
         if (o == null) return false;
         if (this.getClass() != o.getClass()) return false;
         Coordinate coordinate2 = (Coordinate) o;
-        return xCoordinate == coordinate2.xCoordinate && yCoordinate == coordinate2.yCoordinate;
+        return (int)(Math.round(xCoordinate)) == (int)(Math.round(coordinate2.xCoordinate)) && (int)(Math.round(yCoordinate)) == (int)(Math.round(coordinate2.yCoordinate));
     }
 
     @Override
     public int hashCode(){
-        return (int) xCoordinate * 31 + (int) yCoordinate;
+        return (int)(Math.round(xCoordinate)) * 31 + (int)(Math.round(yCoordinate));
     }
 }

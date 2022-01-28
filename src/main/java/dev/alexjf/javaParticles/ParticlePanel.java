@@ -7,12 +7,13 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.lang.Math;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class ParticlePanel extends JPanel implements ActionListener{
-    public int particleNumber = 1000;
+    public int particleNumber = 00;
     public int simulationResolution = 1;
     public int simulationResolutionUpdated = 1;
     public ArrayList<JavaParticle> javaParticles = new ArrayList<>();
@@ -20,23 +21,32 @@ public class ParticlePanel extends JPanel implements ActionListener{
     public JavaParticle javaParticle;
     public HashMap<Coordinate, JavaParticle> javaParticlesHashmap;
     public int callCount = 0;
+    public Timer timer;
 
     public void start(){
+        javaParticles.add(new JavaParticle(new Coordinate(0, 0), 1, 1, new Color(0, 0, 255), false));
+        javaParticles.add(new JavaParticle(new Coordinate(100, 100), -1, -1, new Color(255, 0, 0), false));
         for(int i = 0; i < particleNumber; i++){
-            addParticle();
+            addParticle(false);
         }
         repaint();
-        Timer timer = new Timer(10, this);
+        timer = new Timer(100, this);
         timer.setInitialDelay(1000);
         timer.start();
     }
 
-    public void addParticle(){
-        javaParticles.add(new JavaParticle(new Coordinate(random.nextInt(getWidth()), random.nextInt(getHeight())), random.nextInt(30) - 15, random.nextInt(30) - 15, new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256))));
+    public void addParticle(boolean isSick){
+        if(isSick){
+            javaParticles.add(new JavaParticle(new Coordinate(random.nextInt(getWidth()), random.nextInt(getHeight())), random.nextInt(30) - 15, random.nextInt(30) - 15, new Color(255, 0, 0), true));
+        } else {
+            javaParticles.add(new JavaParticle(new Coordinate(random.nextInt(getWidth()), random.nextInt(getHeight())), random.nextInt(30) - 15, random.nextInt(30) - 15, new Color(0, 0, 255), false));
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //System.out.println((int)Math.pow(1, simulationResolutionUpdated));
+        
         repaint();
     }
 
@@ -65,6 +75,12 @@ public class ParticlePanel extends JPanel implements ActionListener{
                 javaParticle.yVelocity = javaParticle2.yVelocity;
                 javaParticle2.xVelocity = xVelocity2;
                 javaParticle2.yVelocity = yVelocity2;
+                if(javaParticle.isSick || javaParticle2.isSick){
+                    javaParticle.isSick = true;
+                    javaParticle.color = new Color(255, 0, 0);
+                    javaParticle2.isSick = true;
+                    javaParticle2.color = new Color(255, 0, 0);
+                }
             }
         }
     }

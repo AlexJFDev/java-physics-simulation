@@ -14,7 +14,8 @@ import javax.swing.JSlider;
 
 public interface JavaParticlesMain {
     static ParticlePanel particlePanel = new ParticlePanel();
-    static JButton testButton = new JButton("Add Particle");
+    static JButton healthyButton = new JButton("Add Healthy Particle");
+    static JButton sickButton = new JButton("Add Sick Particle");
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Java Particle Simulation");
@@ -50,9 +51,11 @@ public interface JavaParticlesMain {
         });
         controlPanel.add(resolutionSlider);
         
-        testButton.setActionCommand("add particle");
-        testButton.addActionListener(e -> particlePanel.addParticle());
-        controlPanel.add(testButton);
+        healthyButton.addActionListener(e -> particlePanel.addParticle(false));
+        controlPanel.add(healthyButton);
+
+        sickButton.addActionListener(e -> particlePanel.addParticle(true));
+        controlPanel.add(sickButton);
 
         pane.add(controlPanel, constraints);
 
