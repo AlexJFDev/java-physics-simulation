@@ -15,7 +15,7 @@ public class Coordinate {
         if (o == null) return false;
         if (this.getClass() != o.getClass()) return false;
         Coordinate coordinate2 = (Coordinate) o;
-        return xCoordinate == coordinate2.xCoordinate && yCoordinate == coordinate2.yCoordinate;
+        return (int) xCoordinate == (int) coordinate2.xCoordinate && (int) yCoordinate == (int) coordinate2.yCoordinate;
     }
 
     @Override

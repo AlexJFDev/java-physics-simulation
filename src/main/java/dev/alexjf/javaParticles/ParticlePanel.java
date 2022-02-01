@@ -13,8 +13,8 @@ import javax.swing.Timer;
 
 public class ParticlePanel extends JPanel implements ActionListener{
     public int particleNumber = 1000;
-    public int simulationResolution = 1;
-    public int simulationResolutionUpdated = 1;
+    public int simulationResolution = 10;
+    public int simulationResolutionUpdated = simulationResolution;
     public ArrayList<JavaParticle> javaParticles = new ArrayList<>();
     public final Random random = new Random();
     public JavaParticle javaParticle;
@@ -26,7 +26,7 @@ public class ParticlePanel extends JPanel implements ActionListener{
             addParticle();
         }
         repaint();
-        Timer timer = new Timer(10, this);
+        Timer timer = new Timer(1, this);
         timer.setInitialDelay(1000);
         timer.start();
     }
@@ -46,18 +46,15 @@ public class ParticlePanel extends JPanel implements ActionListener{
         simulationResolution = simulationResolutionUpdated;
         javaParticlesHashmap = new HashMap<Coordinate, JavaParticle>();
         for(JavaParticle javaParticle: javaParticles){
-            javaParticle.updatePosition(simulationResolution);
-            if(javaParticle.coordinate.xCoordinate >= getWidth() || javaParticle.coordinate.xCoordinate <= 0){
-                javaParticle.xVelocity = javaParticle.xVelocity * -1;
-            }
-            if(javaParticle.coordinate.yCoordinate >= getHeight() || javaParticle.coordinate.yCoordinate <= 0){
-                javaParticle.yVelocity = javaParticle.yVelocity * -1;
-            }
+            javaParticle.updatePosition(simulationResolution, getWidth(), getHeight());
+            //System.out.println((int)(javaParticle.coordinate.xCoordinate) + ", " + (int)(javaParticle.coordinate.yCoordinate));
+            //System.out.println(javaParticle.coordinate.hashCode());
             graphics.setColor(javaParticle.color);
             graphics.fillRect((int)javaParticle.coordinate.xCoordinate, (int)javaParticle.coordinate.yCoordinate, 2, 2);
             if(javaParticlesHashmap.get(javaParticle.coordinate) == null){
                 javaParticlesHashmap.put(javaParticle.coordinate, javaParticle);
             } else {
+                //System.out.println("collision");
                 JavaParticle javaParticle2 = javaParticlesHashmap.get(javaParticle.coordinate);
                 double xVelocity2 = javaParticle.xVelocity;
                 double yVelocity2 = javaParticle.yVelocity;
@@ -67,5 +64,6 @@ public class ParticlePanel extends JPanel implements ActionListener{
                 javaParticle2.yVelocity = yVelocity2;
             }
         }
+        //System.out.println("");
     }
 }
