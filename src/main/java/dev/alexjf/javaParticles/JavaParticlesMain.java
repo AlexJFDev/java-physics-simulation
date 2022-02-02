@@ -11,12 +11,31 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public interface JavaParticlesMain {
     static ParticlePanel particlePanel = new ParticlePanel();
     static JButton testButton = new JButton("Add Particle");
 
     public static void main(String[] args) {
+        try {
+            // Set System L&F
+        UIManager.setLookAndFeel(
+            UIManager.getCrossPlatformLookAndFeelClassName());
+        } 
+        catch (UnsupportedLookAndFeelException e) {
+        // handle exception
+        }
+        catch (ClassNotFoundException e) {
+        // handle exception
+        }
+        catch (InstantiationException e) {
+        // handle exception
+        }
+        catch (IllegalAccessException e) {
+        // handle exception
+        }
         JFrame frame = new JFrame("Java Particle Simulation");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

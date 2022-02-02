@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class ParticlePanel extends JPanel implements ActionListener{
-    public int particleNumber = 1000;
+    public int particleNumber = 000;
     public int simulationResolution = 10;
     public int simulationResolutionUpdated = simulationResolution;
     public ArrayList<JavaParticle> javaParticleArrayList = new ArrayList<>();
