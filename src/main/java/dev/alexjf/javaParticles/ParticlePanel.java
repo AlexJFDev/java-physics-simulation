@@ -15,10 +15,10 @@ public class ParticlePanel extends JPanel implements ActionListener{
     public int particleNumber = 1000;
     public int simulationResolution = 10;
     public int simulationResolutionUpdated = simulationResolution;
-    public ArrayList<JavaParticle> javaParticles = new ArrayList<>();
+    public ArrayList<JavaParticle> javaParticleArrayList = new ArrayList<>();
     public final Random random = new Random();
     public JavaParticle javaParticle;
-    public HashMap<Coordinate, JavaParticle> javaParticlesHashmap;
+    public HashMap<Coordinate, JavaParticle> coordinateHashmap;
     public int callCount = 0;
 
     public void start(){
@@ -32,7 +32,7 @@ public class ParticlePanel extends JPanel implements ActionListener{
     }
 
     public void addParticle(){
-        javaParticles.add(new JavaParticle(new Coordinate(random.nextInt(getWidth()), random.nextInt(getHeight())), random.nextInt(30) - 15, random.nextInt(30) - 15, new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256))));
+        javaParticleArrayList.add(new JavaParticle(new Coordinate(random.nextInt(getWidth()), random.nextInt(getHeight())), random.nextInt(30) - 15, random.nextInt(30) - 15, new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256))));
     }
 
     @Override
@@ -44,24 +44,23 @@ public class ParticlePanel extends JPanel implements ActionListener{
     public void paintComponent(Graphics graphics){
         callCount++;
         simulationResolution = simulationResolutionUpdated;
-        javaParticlesHashmap = new HashMap<Coordinate, JavaParticle>();
-        for(JavaParticle javaParticle: javaParticles){
+        coordinateHashmap = new HashMap<Coordinate, JavaParticle>();
+        for(JavaParticle javaParticle: javaParticleArrayList){
             javaParticle.updatePosition(simulationResolution, getWidth(), getHeight());
             //System.out.println((int)(javaParticle.coordinate.xCoordinate) + ", " + (int)(javaParticle.coordinate.yCoordinate));
             //System.out.println(javaParticle.coordinate.hashCode());
             graphics.setColor(javaParticle.color);
             graphics.fillRect((int)javaParticle.coordinate.xCoordinate, (int)javaParticle.coordinate.yCoordinate, 2, 2);
-            if(javaParticlesHashmap.get(javaParticle.coordinate) == null){
-                javaParticlesHashmap.put(javaParticle.coordinate, javaParticle);
-            } else {
-                //System.out.println("collision");
-                JavaParticle javaParticle2 = javaParticlesHashmap.get(javaParticle.coordinate);
+            if(coordinateHashmap.containsKey(javaParticle.coordinate)){
+                JavaParticle javaParticle2 = coordinateHashmap.get(javaParticle.coordinate);
                 double xVelocity2 = javaParticle.xVelocity;
                 double yVelocity2 = javaParticle.yVelocity;
                 javaParticle.xVelocity = javaParticle2.xVelocity;
                 javaParticle.yVelocity = javaParticle2.yVelocity;
                 javaParticle2.xVelocity = xVelocity2;
                 javaParticle2.yVelocity = yVelocity2;
+            } else {
+                coordinateHashmap.put(javaParticle.coordinate, javaParticle);
             }
         }
         //System.out.println("");
