@@ -40,13 +40,14 @@ public interface JavaParticlesMain {
         constraints.gridx = 0;
         constraints.gridy = 1;
 
-        JSlider resolutionSlider = new JSlider(JSlider.HORIZONTAL, 0, 50, particlePanel.simulationResolutionUpdated);
+        JSlider resolutionSlider = new JSlider(JSlider.HORIZONTAL, 0, 50, 10);
         resolutionSlider.setMajorTickSpacing(10);
         resolutionSlider.setMinorTickSpacing(5);
         resolutionSlider.setPaintTicks(true);
         resolutionSlider.setPaintLabels(true);
         resolutionSlider.addChangeListener(l -> {
-            particlePanel.simulationResolutionUpdated = resolutionSlider.getValue();
+            particlePanel.simulationResolutionUpdated = (int) Math.pow(10.0, (double) resolutionSlider.getValue() / 10);
+            resolutionSlider.getValue();
         });
         controlPanel.add(resolutionSlider);
         
