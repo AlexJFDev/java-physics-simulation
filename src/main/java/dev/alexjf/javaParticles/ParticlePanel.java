@@ -14,7 +14,7 @@ import javax.swing.Timer;
 public class ParticlePanel extends JPanel implements ActionListener{
     public int particleNumber = 1000;
     public int simulationResolution = 10;
-    public int simulationResolutionUpdated = simulationResolution;
+    public int simulationResolutionUpdated = 1;
     public ArrayList<JavaParticle> javaParticleArrayList = new ArrayList<>();
     public final Random random = new Random();
     public JavaParticle javaParticle;
@@ -26,7 +26,7 @@ public class ParticlePanel extends JPanel implements ActionListener{
             addParticle();
         }
         repaint();
-        Timer timer = new Timer(1, this);
+        Timer timer = new Timer(0, this);
         timer.setInitialDelay(1000);
         timer.start();
     }
@@ -43,7 +43,7 @@ public class ParticlePanel extends JPanel implements ActionListener{
     @Override
     public void paintComponent(Graphics graphics){
         callCount++;
-        simulationResolution = simulationResolutionUpdated;
+        simulationResolution = (int) Math.pow(10.0, (double) simulationResolutionUpdated / 10);
         coordinateHashmap = new HashMap<Coordinate, JavaParticle>();
         for(JavaParticle javaParticle: javaParticleArrayList){
             javaParticle.updatePosition(simulationResolution, getWidth(), getHeight());

@@ -40,9 +40,9 @@ public interface JavaParticlesMain {
         constraints.gridx = 0;
         constraints.gridy = 1;
 
-        JSlider resolutionSlider = new JSlider(JSlider.HORIZONTAL, 1, 10, particlePanel.simulationResolution);
-        resolutionSlider.setMajorTickSpacing(1);
-        resolutionSlider.setMinorTickSpacing(1);
+        JSlider resolutionSlider = new JSlider(JSlider.HORIZONTAL, 0, 50, particlePanel.simulationResolutionUpdated);
+        resolutionSlider.setMajorTickSpacing(10);
+        resolutionSlider.setMinorTickSpacing(5);
         resolutionSlider.setPaintTicks(true);
         resolutionSlider.setPaintLabels(true);
         resolutionSlider.addChangeListener(l -> {
