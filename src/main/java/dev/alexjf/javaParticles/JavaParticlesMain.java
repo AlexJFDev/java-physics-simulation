@@ -88,8 +88,8 @@ public interface JavaParticlesMain {
 
         frame.pack();
         frame.validate();
-        frame.setVisible(true);
         frame.setSize(400, 400);
+        frame.setVisible(true);
 
         while(particlePanel.callCount < 2){
             try {
