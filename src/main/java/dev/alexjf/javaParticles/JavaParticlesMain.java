@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -16,7 +17,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public interface JavaParticlesMain {
     static ParticlePanel particlePanel = new ParticlePanel();
-    static JButton testButton = new JButton("Add Particle");
+    static JButton addParticleButton = new JButton("Add Particle");
+    static JCheckBox pauseCheckBox = new JCheckBox("Pause");
 
     public static void main(String[] args) {
         try {
@@ -69,9 +71,11 @@ public interface JavaParticlesMain {
         });
         controlPanel.add(resolutionSlider);
         
-        testButton.setActionCommand("add particle");
-        testButton.addActionListener(e -> particlePanel.addParticle());
-        controlPanel.add(testButton);
+        addParticleButton.addActionListener(e -> particlePanel.addParticle());
+        controlPanel.add(addParticleButton);
+
+        pauseCheckBox.addActionListener(e -> particlePanel.pauseStatus = pauseCheckBox.isSelected());
+        controlPanel.add(pauseCheckBox);
 
         pane.add(controlPanel, constraints);
 

@@ -26,20 +26,26 @@ public class JavaParticle extends JavaSprite{
         coordinate.xCoordinate = coordinate.xCoordinate + xVelocity/resolution;
         coordinate.yCoordinate = coordinate.yCoordinate + yVelocity/resolution;
 
-        if(coordinate.xCoordinate > width || coordinate.xCoordinate < 0){
+        if(coordinate.xCoordinate > width){
             angle = (90 - (angle - 90)) % 360;
             xVelocity = xVelocity * -1;
-            if(coordinate.xCoordinate > width){
-                coordinate.xCoordinate = width;
-            }
+            coordinate.xCoordinate = width;
+            updateVelocity();
+        } else if (coordinate.xCoordinate < 0){
+            angle = (90 - (angle - 90)) % 360;
+            xVelocity = xVelocity * -1;
+            coordinate.xCoordinate = 0;
             updateVelocity();
         }
-        if(coordinate.yCoordinate > height || coordinate.yCoordinate < 0){
+        if(coordinate.yCoordinate > height){
             angle = (0 - (angle - 0)) % 360;
             yVelocity = yVelocity * -1;
-            if(coordinate.yCoordinate > height){
-                coordinate.yCoordinate = height;
-            }
+            coordinate.yCoordinate = height;
+            updateVelocity();
+        } else if(coordinate.yCoordinate > height || coordinate.yCoordinate < 0){
+            angle = (0 - (angle - 0)) % 360;
+            yVelocity = yVelocity * -1;
+            coordinate.yCoordinate = 0;
             updateVelocity();
         }
     }

@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class ParticlePanel extends JPanel implements ActionListener{
-    public int particleNumber = 1;
+    public int particleNumber = 100;
     public int simulationResolution = 10;
     public int simulationResolutionUpdated = simulationResolution;
     public ArrayList<JavaParticle> javaParticleArrayList = new ArrayList<>();
@@ -21,21 +21,23 @@ public class ParticlePanel extends JPanel implements ActionListener{
     public JavaParticle javaParticle;
     public HashMap<Coordinate, JavaSprite> coordinateHashmap;
     public int callCount = 0;
+    public boolean pauseStatus;
 
     public void start(){
         for(int i = 0; i < particleNumber; i++){
             addParticle();
         }
-        //javaParticleArrayList.add(new JavaParticle(new Coordinate(200, 200), 1, 1, new Color(0, 255, 0)));
-        //javaParticleArrayList.add(new JavaParticle(new Coordinate(100, 100), -1, -1, new Color(255, 0, 255)));
+        //javaParticleArrayList.add(new JavaParticle(new Coordinate(100, 200), 0, 1, new Color(255, 0, 0)));
+        //javaParticleArrayList.add(new JavaParticle(new Coordinate(200, 200), 0, 1, new Color(0, 255, 0)));
+        //javaParticleArrayList.add(new JavaParticle(new Coordinate(300, 200), 0, 1, new Color(0, 0, 255)));
         repaint();
-        Timer timer = new Timer(0, this);
+        Timer timer = new Timer(1, this);
         timer.setInitialDelay(1000);
         timer.start();
     }
 
     public void addParticle(){
-        javaParticleArrayList.add(new JavaParticle(new Coordinate(random.nextInt(getWidth()), random.nextInt(getHeight())), random.nextInt(360), random.nextInt(10), new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256))));
+        javaParticleArrayList.add(new JavaParticle(new Coordinate(random.nextInt(getWidth()), random.nextInt(getHeight())), random.nextInt(360), random.nextInt(100) / 10, new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256))));
     }
 
     @Override
@@ -46,21 +48,31 @@ public class ParticlePanel extends JPanel implements ActionListener{
     @Override
     public void paintComponent(Graphics graphics){
         callCount++;
-        simulationResolution = simulationResolutionUpdated;
-        coordinateHashmap = new HashMap<Coordinate, JavaSprite>();
-        graphics.setColor(Color.WHITE);
-        graphics.fillRect(0, 0, getWidth(), getHeight());
-        for(JavaParticle javaParticle: javaParticleArrayList){
-            javaParticle.updatePosition(simulationResolution, getWidth(), getHeight());
-            graphics.setColor(javaParticle.color);
-            graphics.fillRect((int)javaParticle.coordinate.xCoordinate, (int)javaParticle.coordinate.yCoordinate, 2, 2);
-            if(coordinateHashmap.containsKey(javaParticle.coordinate)){
-                Toolkit.getDefaultToolkit().beep();
-                JavaSprite javaSprite = coordinateHashmap.get(javaParticle.coordinate);
-                javaSprite.collide(javaParticle);
-            } else {
-                coordinateHashmap.put(javaParticle.coordinate, javaParticle);
+        if(pauseStatus == false){
+            simulationResolution = simulationResolutionUpdated;
+            coordinateHashmap = new HashMap<Coordinate, JavaSprite>();
+            graphics.setColor(Color.WHITE);
+            graphics.fillRect(0, 0, getWidth(), getHeight());
+            for(JavaParticle javaParticle: javaParticleArrayList){
+                javaParticle.updatePosition(simulationResolution, getWidth(), getHeight());
+                graphics.setColor(javaParticle.color);
+                graphics.fillRect((int)javaParticle.coordinate.xCoordinate, (int)javaParticle.coordinate.yCoordinate, 2, 2);
+                if(coordinateHashmap.containsKey(javaParticle.coordinate)){
+                    Toolkit.getDefaultToolkit().beep();
+                    JavaSprite javaSprite = coordinateHashmap.get(javaParticle.coordinate);
+                    javaSprite.collide(javaParticle);
+                } else {
+                    coordinateHashmap.put(javaParticle.coordinate, javaParticle);
+                }
+            }
+        } else {
+            graphics.setColor(Color.WHITE);
+            graphics.fillRect(0, 0, getWidth(), getHeight());
+            for(JavaParticle javaParticle: javaParticleArrayList){
+                graphics.setColor(javaParticle.color);
+                graphics.fillRect((int)javaParticle.coordinate.xCoordinate, (int)javaParticle.coordinate.yCoordinate, 2, 2);
             }
         }
     }
+
 }
