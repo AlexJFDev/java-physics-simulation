@@ -10,11 +10,11 @@ public class Coordinate {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null) return false;
-        if (this.getClass() != o.getClass()) return false;
-        Coordinate coordinate2 = (Coordinate) o;
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null) return false;
+        if (this.getClass() != object.getClass()) return false;
+        Coordinate coordinate2 = (Coordinate) object;
         return (int) xCoordinate == (int) coordinate2.xCoordinate && (int) yCoordinate == (int) coordinate2.yCoordinate;
     }
 

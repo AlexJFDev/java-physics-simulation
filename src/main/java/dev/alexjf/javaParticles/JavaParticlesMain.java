@@ -97,7 +97,6 @@ public interface JavaParticlesMain {
                 e.printStackTrace();
             }
         }
-
         particlePanel.start();
     }
 }
