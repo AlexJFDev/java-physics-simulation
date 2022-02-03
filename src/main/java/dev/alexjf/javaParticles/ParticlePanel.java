@@ -49,8 +49,6 @@ public class ParticlePanel extends JPanel implements ActionListener{
         graphics.fillRect(0, 0, getWidth(), getHeight());
         for(JavaParticle javaParticle: javaParticleArrayList){
             javaParticle.updatePosition(simulationResolution, getWidth(), getHeight());
-            //System.out.println((int)(javaParticle.coordinate.xCoordinate) + ", " + (int)(javaParticle.coordinate.yCoordinate));
-            //System.out.println(javaParticle.coordinate.hashCode());
             graphics.setColor(javaParticle.color);
             graphics.fillRect((int)javaParticle.coordinate.xCoordinate, (int)javaParticle.coordinate.yCoordinate, 2, 2);
             if(coordinateHashmap.containsKey(javaParticle.coordinate)){
@@ -65,6 +63,5 @@ public class ParticlePanel extends JPanel implements ActionListener{
                 coordinateHashmap.put(javaParticle.coordinate, javaParticle);
             }
         }
-        //System.out.println("");
     }
 }
