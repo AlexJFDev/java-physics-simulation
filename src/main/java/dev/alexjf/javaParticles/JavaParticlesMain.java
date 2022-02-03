@@ -22,7 +22,7 @@ public interface JavaParticlesMain {
         try {
             // Set System L&F
         UIManager.setLookAndFeel(
-            UIManager.getCrossPlatformLookAndFeelClassName());
+            UIManager.getSystemLookAndFeelClassName());
         } 
         catch (UnsupportedLookAndFeelException e) {
         // handle exception

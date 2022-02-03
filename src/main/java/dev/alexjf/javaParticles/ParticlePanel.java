@@ -45,6 +45,8 @@ public class ParticlePanel extends JPanel implements ActionListener{
         callCount++;
         simulationResolution = simulationResolutionUpdated;
         coordinateHashmap = new HashMap<Coordinate, JavaParticle>();
+        graphics.setColor(Color.WHITE);
+        graphics.fillRect(0, 0, getWidth(), getHeight());
         for(JavaParticle javaParticle: javaParticleArrayList){
             javaParticle.updatePosition(simulationResolution, getWidth(), getHeight());
             //System.out.println((int)(javaParticle.coordinate.xCoordinate) + ", " + (int)(javaParticle.coordinate.yCoordinate));
