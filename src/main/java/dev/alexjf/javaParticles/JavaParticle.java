@@ -22,7 +22,7 @@ public class JavaParticle extends JavaSprite{
         updateVelocity();
     }
 
-    public void updatePosition(int resolution, int width, int height){
+    public void updatePosition(double resolution, int width, int height){
         coordinate.xCoordinate = coordinate.xCoordinate + xVelocity/resolution;
         coordinate.yCoordinate = coordinate.yCoordinate + yVelocity/resolution;
 

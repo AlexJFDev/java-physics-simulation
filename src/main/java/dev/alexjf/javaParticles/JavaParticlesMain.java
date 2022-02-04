@@ -66,10 +66,19 @@ public interface JavaParticlesMain {
         resolutionSlider.setPaintTicks(true);
         resolutionSlider.setPaintLabels(true);
         resolutionSlider.addChangeListener(l -> {
-            particlePanel.simulationResolutionUpdated = (int) Math.pow(10.0, (double) resolutionSlider.getValue() / 10);
-            resolutionSlider.getValue();
+            particlePanel.simulationResolutionUpdated = Math.pow(10.0, (double) resolutionSlider.getValue() / 10);
         });
         controlPanel.add(resolutionSlider);
+
+        JSlider controlSlider = new JSlider(JSlider.HORIZONTAL, 0, 359, 10);
+        controlSlider.setMajorTickSpacing(90);
+        controlSlider.setMinorTickSpacing(15);
+        controlSlider.setPaintTicks(true);
+        controlSlider.setPaintLabels(true);
+        controlSlider.addChangeListener(l -> {
+            particlePanel.controledParticle.sliderAngle = controlSlider.getValue();
+        });
+        controlPanel.add(controlSlider);
         
         addParticleButton.addActionListener(e -> particlePanel.addParticle());
         controlPanel.add(addParticleButton);
