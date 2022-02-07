@@ -5,6 +5,9 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -18,6 +21,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 public interface JavaParticlesMain {
     static ParticlePanel particlePanel = new ParticlePanel();
     static JButton addParticleButton = new JButton("Add Particle");
+    static JButton serializeButton = new JButton("Save State");
+    static JButton deserializeButton = new JButton("Save State");
     static JCheckBox pauseCheckBox = new JCheckBox("Pause");
 
     public static void main(String[] args) {
@@ -72,8 +77,22 @@ public interface JavaParticlesMain {
         });
         controlPanel.add(resolutionSlider);
         
-        addParticleButton.addActionListener(e -> particlePanel.addParticle());
+        addParticleButton.addActionListener(event -> particlePanel.addParticle());
         controlPanel.add(addParticleButton);
+
+        serializeButton.addActionListener(event -> {
+            try {
+                FileOutputStream fileOut = new FileOutputStream("/panel.ser");
+                ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                out.writeObject(particlePanel);
+                out.close();
+                fileOut.close();
+                System.out.println("Serialized data is saved in /panel.ser");
+            } catch (IOException error) {
+                error.printStackTrace();
+            }
+        });
+        controlPanel.add(serializeButton);
 
         pauseCheckBox.addActionListener(e -> particlePanel.pauseStatus = pauseCheckBox.isSelected());
         controlPanel.add(pauseCheckBox);

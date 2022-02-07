@@ -12,7 +12,7 @@ import java.util.Random;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class ParticlePanel extends JPanel implements ActionListener{
+public class ParticlePanel extends JPanel implements ActionListener, java.io.Serializable{
     public boolean pauseStatus;
     public int callCount = 0;
 
