@@ -1,6 +1,8 @@
 package dev.alexjf.javaParticles;
 
-public class Coordinate {
+import java.io.Serializable;
+
+public class Coordinate implements Serializable{
     public double xCoordinate;
     public double yCoordinate;
 

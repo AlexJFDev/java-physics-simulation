@@ -1,6 +1,8 @@
 package dev.alexjf.javaParticles;
 
-public class JavaSprite {
+import java.io.Serializable;
+
+public class JavaSprite implements Serializable{
     public void collide(JavaSprite javaSprite){
         
     }

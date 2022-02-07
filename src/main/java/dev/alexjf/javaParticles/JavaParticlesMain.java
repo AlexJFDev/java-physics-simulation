@@ -82,7 +82,7 @@ public interface JavaParticlesMain {
 
         serializeButton.addActionListener(event -> {
             try {
-                FileOutputStream fileOut = new FileOutputStream("/panel.ser");
+                FileOutputStream fileOut = new FileOutputStream("/Users/993537/java-physics-simulation/panel.ser");
                 ObjectOutputStream out = new ObjectOutputStream(fileOut);
                 out.writeObject(particlePanel);
                 out.close();
