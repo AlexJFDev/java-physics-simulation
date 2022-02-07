@@ -20,7 +20,7 @@ public class Coordinate {
 
     @Override
     public int hashCode(){
-        return (int) xCoordinate * 31 + (int) yCoordinate;
+        return ((Double) xCoordinate).hashCode() * 31 + ((Double) yCoordinate).hashCode();
     }
 
     public double getXCoordinate(){
