@@ -7,8 +7,8 @@ public class JavaParticle extends JavaSprite{
     public Coordinate coordinate;
     private double xVelocity;
     private double yVelocity;
-    public double velocity;
-    public double angle;
+    private double velocity;
+    private double angle;
 
     public Color color;
 
@@ -22,31 +22,31 @@ public class JavaParticle extends JavaSprite{
         updateVelocity();
     }
 
-    public void updatePosition(int resolution, int width, int height){
+    public void updatePosition(double resolution, int width, int height){
         coordinate.xCoordinate = coordinate.xCoordinate + xVelocity/resolution;
         coordinate.yCoordinate = coordinate.yCoordinate + yVelocity/resolution;
 
         if(coordinate.xCoordinate > width){
             angle = (90 - (angle - 90)) % 360;
             xVelocity = xVelocity * -1;
+            xVelocity = velocity * Math.cos(Math.toRadians(angle));
             coordinate.xCoordinate = width;
-            updateVelocity();
         } else if (coordinate.xCoordinate < 0){
             angle = (90 - (angle - 90)) % 360;
             xVelocity = xVelocity * -1;
+            xVelocity = velocity * Math.cos(Math.toRadians(angle));
             coordinate.xCoordinate = 0;
-            updateVelocity();
         }
         if(coordinate.yCoordinate > height){
             angle = (0 - (angle - 0)) % 360;
             yVelocity = yVelocity * -1;
+            yVelocity = velocity * Math.sin(Math.toRadians(angle));
             coordinate.yCoordinate = height;
-            updateVelocity();
-        } else if(coordinate.yCoordinate > height || coordinate.yCoordinate < 0){
+        } else if(coordinate.yCoordinate < 0){
             angle = (0 - (angle - 0)) % 360;
             yVelocity = yVelocity * -1;
+            yVelocity = velocity * Math.sin(Math.toRadians(angle));
             coordinate.yCoordinate = 0;
-            updateVelocity();
         }
     }
 

@@ -22,4 +22,20 @@ public class Coordinate {
     public int hashCode(){
         return (int) xCoordinate * 31 + (int) yCoordinate;
     }
+
+    public double getXCoordinate(){
+        return xCoordinate;
+    }
+
+    public double getYCoordinate(){
+        return yCoordinate;
+    }
+
+    public void setXCoordinate(double xCoordinateArgument){
+        xCoordinate = xCoordinateArgument;
+    }
+
+    public void setYCoordinate(double yCoordinateArgument){
+        yCoordinate = yCoordinateArgument;
+    }
 }

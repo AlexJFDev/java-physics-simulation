@@ -13,15 +13,15 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class ParticlePanel extends JPanel implements ActionListener{
-    public int particleNumber = 100;
-    public int simulationResolution = 10;
-    public int simulationResolutionUpdated = simulationResolution;
-    public ArrayList<JavaParticle> javaParticleArrayList = new ArrayList<>();
-    public final Random random = new Random();
-    public JavaParticle javaParticle;
-    public HashMap<Coordinate, JavaSprite> coordinateHashmap;
-    public int callCount = 0;
     public boolean pauseStatus;
+    public int callCount = 0;
+
+    private ArrayList<JavaParticle> javaParticleArrayList = new ArrayList<>();
+    private double simulationResolution = 10;
+    private HashMap<Coordinate, JavaSprite> coordinateHashmap;
+
+    private final int particleNumber = 1000;
+    private final Random random = new Random();
 
     public void start(){
         for(int i = 0; i < particleNumber; i++){
@@ -49,7 +49,6 @@ public class ParticlePanel extends JPanel implements ActionListener{
     public void paintComponent(Graphics graphics){
         callCount++;
         if(pauseStatus == false){
-            simulationResolution = simulationResolutionUpdated;
             coordinateHashmap = new HashMap<Coordinate, JavaSprite>();
             graphics.setColor(Color.WHITE);
             graphics.fillRect(0, 0, getWidth(), getHeight());
@@ -75,4 +74,7 @@ public class ParticlePanel extends JPanel implements ActionListener{
         }
     }
 
+    public void setSimulationResolution(double simulationResolutionArgument){
+        simulationResolution = simulationResolutionArgument;
+    }
 }

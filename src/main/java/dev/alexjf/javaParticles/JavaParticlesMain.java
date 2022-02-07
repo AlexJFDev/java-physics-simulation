@@ -66,7 +66,7 @@ public interface JavaParticlesMain {
         resolutionSlider.setPaintTicks(true);
         resolutionSlider.setPaintLabels(true);
         resolutionSlider.addChangeListener(l -> {
-            particlePanel.simulationResolutionUpdated = (int) Math.pow(10.0, (double) resolutionSlider.getValue() / 10);
+            particlePanel.setSimulationResolution(Math.pow(10.0, (double) resolutionSlider.getValue() / 10));
             resolutionSlider.getValue();
         });
         controlPanel.add(resolutionSlider);
@@ -91,7 +91,7 @@ public interface JavaParticlesMain {
 
         frame.pack();
         frame.validate();
-        frame.setSize(400, 400);
+        frame.setSize(500, 500);
         frame.setVisible(true);
 
         while(particlePanel.callCount < 2){
