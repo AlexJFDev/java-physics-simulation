@@ -5,13 +5,16 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -19,11 +22,12 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public interface JavaParticlesMain {
-    static ParticlePanel particlePanel = new ParticlePanel();
+    ParticlePanel particlePanel = new ParticlePanel();
     static JButton addParticleButton = new JButton("Add Particle");
     static JButton serializeButton = new JButton("Save State");
-    static JButton deserializeButton = new JButton("Save State");
+    static JButton deserializeButton = new JButton("Load State");
     static JCheckBox pauseCheckBox = new JCheckBox("Pause");
+    final JFileChooser fileChooser = new JFileChooser();
 
     public static void main(String[] args) {
         try {
@@ -82,7 +86,8 @@ public interface JavaParticlesMain {
 
         serializeButton.addActionListener(event -> {
             try {
-                FileOutputStream fileOut = new FileOutputStream("/Users/993537/java-physics-simulation/panel.ser");
+                fileChooser.showSaveDialog(null);
+                FileOutputStream fileOut = new FileOutputStream(fileChooser.getSelectedFile());
                 ObjectOutputStream out = new ObjectOutputStream(fileOut);
                 out.writeObject(particlePanel);
                 out.close();
@@ -93,6 +98,26 @@ public interface JavaParticlesMain {
             }
         });
         controlPanel.add(serializeButton);
+
+        deserializeButton.addActionListener(event -> {
+            try {
+                fileChooser.showOpenDialog(null);
+                FileInputStream fileIn = new FileInputStream(fileChooser.getSelectedFile());
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                particlePanel.javaParticleArrayList = ((ParticlePanel) in.readObject()).javaParticleArrayList;
+                in.close();
+                fileIn.close();
+             } catch (IOException i) {
+                i.printStackTrace();
+                return;
+             } catch (ClassNotFoundException c) {
+                System.out.println("Employee class not found");
+                c.printStackTrace();
+                return;
+             }
+
+        });
+        controlPanel.add(deserializeButton);
 
         pauseCheckBox.addActionListener(e -> particlePanel.pauseStatus = pauseCheckBox.isSelected());
         controlPanel.add(pauseCheckBox);

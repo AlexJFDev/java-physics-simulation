@@ -22,7 +22,7 @@ public class Coordinate implements Serializable{
 
     @Override
     public int hashCode(){
-        return ((Double) xCoordinate).hashCode() * 31 + ((Double) yCoordinate).hashCode();
+        return (int) xCoordinate * 31 + (int) yCoordinate;
     }
 
     public double getXCoordinate(){

@@ -12,13 +12,11 @@ import java.util.Random;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import java.io.Serializable;
-
-public class ParticlePanel extends JPanel implements ActionListener, Serializable{
+public class ParticlePanel extends JPanel implements ActionListener{
     public boolean pauseStatus;
     public int callCount = 0;
 
-    private ArrayList<JavaParticle> javaParticleArrayList = new ArrayList<>();
+    public ArrayList<JavaParticle> javaParticleArrayList = new ArrayList<>();
     private double simulationResolution = 10;
     private HashMap<Coordinate, JavaSprite> coordinateHashmap;
 
@@ -72,6 +70,7 @@ public class ParticlePanel extends JPanel implements ActionListener, Serializabl
             for(JavaParticle javaParticle: javaParticleArrayList){
                 graphics.setColor(javaParticle.color);
                 graphics.fillRect((int)javaParticle.coordinate.xCoordinate, (int)javaParticle.coordinate.yCoordinate, 2, 2);
+                //graphics.fillOval(x, y, width, height);
             }
         }
     }
