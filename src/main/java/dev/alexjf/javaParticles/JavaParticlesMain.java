@@ -22,7 +22,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public interface JavaParticlesMain {
-    ParticlePanel particlePanel = new ParticlePanel();
+    public PhysicsPanel physicsPanel = new PhysicsPanel();
+    public PhysicsManager physicsManager = new PhysicsManager(physicsPanel);
     static JButton addParticleButton = new JButton("Add Particle");
     static JButton serializeButton = new JButton("Save State");
     static JButton deserializeButton = new JButton("Load State");
@@ -30,6 +31,7 @@ public interface JavaParticlesMain {
     final JFileChooser fileChooser = new JFileChooser();
 
     public static void main(String[] args) {
+        
         try {
             UIManager.setLookAndFeel(
                 UIManager.getSystemLookAndFeelClassName()
@@ -47,6 +49,7 @@ public interface JavaParticlesMain {
         catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+
         JFrame frame = new JFrame("Java Particle Simulation");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -54,13 +57,13 @@ public interface JavaParticlesMain {
         pane.setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
-        particlePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        physicsPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         constraints.weightx = 0.8;
         constraints.weighty = 0.8;
         constraints.fill = GridBagConstraints.BOTH;
         constraints.gridx = 0;
         constraints.gridy = 0;
-        pane.add(particlePanel, constraints);
+        pane.add(physicsPanel, constraints);
 
         JPanel controlPanel = new JPanel(new FlowLayout());
         controlPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -76,12 +79,12 @@ public interface JavaParticlesMain {
         resolutionSlider.setPaintTicks(true);
         resolutionSlider.setPaintLabels(true);
         resolutionSlider.addChangeListener(l -> {
-            particlePanel.setSimulationResolution(Math.pow(10.0, (double) resolutionSlider.getValue() / 10));
+            physicsManager.setSimulationResolution(Math.pow(10.0, (double) resolutionSlider.getValue() / 10));
             resolutionSlider.getValue();
         });
         controlPanel.add(resolutionSlider);
         
-        addParticleButton.addActionListener(event -> particlePanel.addParticle());
+        addParticleButton.addActionListener(event -> physicsManager.addParticle());
         controlPanel.add(addParticleButton);
 
         serializeButton.addActionListener(event -> {
@@ -89,10 +92,9 @@ public interface JavaParticlesMain {
                 fileChooser.showSaveDialog(null);
                 FileOutputStream fileOut = new FileOutputStream(fileChooser.getSelectedFile());
                 ObjectOutputStream out = new ObjectOutputStream(fileOut);
-                out.writeObject(particlePanel);
+                out.writeObject(physicsPanel);
                 out.close();
                 fileOut.close();
-                System.out.println("Serialized data is saved in /panel.ser");
             } catch (IOException error) {
                 error.printStackTrace();
             }
@@ -104,14 +106,13 @@ public interface JavaParticlesMain {
                 fileChooser.showOpenDialog(null);
                 FileInputStream fileIn = new FileInputStream(fileChooser.getSelectedFile());
                 ObjectInputStream in = new ObjectInputStream(fileIn);
-                particlePanel.javaParticleArrayList = ((ParticlePanel) in.readObject()).javaParticleArrayList;
+                physicsManager.javaParticleArrayList = ((PhysicsManager) in.readObject()).javaParticleArrayList;
                 in.close();
                 fileIn.close();
              } catch (IOException i) {
                 i.printStackTrace();
                 return;
              } catch (ClassNotFoundException c) {
-                System.out.println("Employee class not found");
                 c.printStackTrace();
                 return;
              }
@@ -119,7 +120,7 @@ public interface JavaParticlesMain {
         });
         controlPanel.add(deserializeButton);
 
-        pauseCheckBox.addActionListener(e -> particlePanel.pauseStatus = pauseCheckBox.isSelected());
+        pauseCheckBox.addActionListener(e -> physicsManager.pauseStatus = pauseCheckBox.isSelected());
         controlPanel.add(pauseCheckBox);
 
         pane.add(controlPanel, constraints);
@@ -139,13 +140,16 @@ public interface JavaParticlesMain {
         frame.setSize(500, 500);
         frame.setVisible(true);
 
-        while(particlePanel.callCount < 2){
+        /*while(physicsManager.callCount < 2){
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
-        particlePanel.start();
+        }*/
+
+        physicsManager.start();
+        physicsPanel.setPhysicsManager(physicsManager);
+        physicsPanel.start();
     }
 }
